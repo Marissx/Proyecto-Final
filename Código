@@ -1,0 +1,80 @@
+#include<stdio.h>
+int main(){
+	//definición de variables
+	int azucaradas[30], simples[30], choco[30]; /*defino el espacio de los arreglos como 30 porque es número de días en un mes*/
+	int dias, i,sumasimples=0, sumaazucar=0, sumachoco=0, totaldocenas=0, repetir, diaconsulta, consulta; /*lo inicialicé en 0 porque tuve un problema con un dato basura );*/
+	float costosimples=0, ventasimples=0, ventaazucar=0,costoazucar=0,costochoco=0,ventachoco=0, costoelab=0, totalventas=0, ganancia=0, diacostoelab,diaventatotal, diaganancia;
+	
+	
+	//solicito el número de días
+	printf("ingrese el total de d\241as que sea capturar (como m\240ximo de 30) \n");
+	scanf("%d", &dias);
+	
+	//Para asegurar que el número de días coincida con el tamaño del arreglo
+	while(dias>30 || dias<0){
+		printf("dato incorrecto, vuelva a ingresar un n\243mero de d\241as menor a 30 y mayor que 0 \n");/*esto para que los dias sean obligatoriamente menores que 30*/
+		scanf("%d", &dias);
+	}
+	
+	for(i=0;i<dias;i++){
+		printf("Ingrese el total de docenas de galletas simples, azucaradas, chocolate que se vendieron en el d\241a %d, separados con un espacio \n",i+1);
+		scanf("%d %d %d", &simples[i],&azucaradas[i],&choco[i]);
+		
+		//es un acumulativo de suma
+		sumasimples+=simples[i];
+		sumaazucar+=azucaradas[i];
+		sumachoco+=choco[i];
+		totaldocenas= (sumasimples+sumaazucar+sumachoco);
+}
+
+	//Estos son los costos de elaboración y venta
+	costosimples=(sumasimples)*7.50;
+	ventasimples=sumasimples*10.00;
+	
+	costoazucar=sumaazucar*12.50;
+	ventaazucar=sumaazucar*15.00;
+	
+	costochoco=sumachoco*15.50;
+	ventachoco=sumachoco*20.00;
+	
+	//calculos para determinar las ganancias y costos de elaboración
+	costoelab = costosimples + costoazucar+ costochoco;
+	totalventas= ventasimples+ventaazucar+ventachoco;
+	ganancia= totalventas-costoelab;
+	
+	printf("\n El total de d\241as fue: %d \n", dias);
+	printf("El total de docenas vendidas en ese tiempo fue de: %d \n", totaldocenas);
+	printf("Los gastos de elaboraci\242n fueron de: %.2f \n",costoelab);
+	printf("Las ventas fueron de: %.2f \n", totalventas);
+	printf("Las ganancias totales fueron de: %.2f \n \n", ganancia);
+	
+	
+	printf("Desea consultar un d\241a en espec\241fico \77 \n");
+	printf("[1] Si \n");
+	printf("[2] No \n \n");
+
+	scanf("%d", &consulta);
+	do{
+	if(consulta==1){
+		printf("Ingrese que d\241a desea saber \n");
+		scanf("%d", &diaconsulta); /*utilicé diadeconsulta-1 porque el almacenamiento del arreglo es uno menos que el dia*/
+		printf("El total de docenas de galletas simples fue de: %d \t , el de azucaradas de %d \t y el de chocolate de %d \n", simples[diaconsulta-1], azucaradas[diaconsulta-1], choco[diaconsulta-1]);
+		
+		diacostoelab= ((simples[diaconsulta-1])*7.50)+((azucaradas[diaconsulta-1])*12.50)+((choco[diaconsulta-1])*15.50);
+		diaventatotal= ((simples[diaconsulta-1])*9.75)+((azucaradas[diaconsulta-1])*14.50)+((choco[diaconsulta-1])*18.50); 
+		diaganancia= diaventatotal-diacostoelab;
+		
+		printf("El costo de la elaboraci\242n del d\241a %d fue: %.2f \n ", diaconsulta,diacostoelab);
+		printf("Las ventan fueron de: %.2f \n", diaventatotal);
+		printf("Y las gancias de ese d\241a fueron %.2f \n", diaganancia);
+		printf("Desea realizar otra consulta\77 \n");
+		printf("[1] Si \n");
+		printf("[2] Salir \n");
+		scanf("%d",&repetir);
+	}
+	}
+	while(repetir==1);
+	if(repetir!=1)
+	printf("\n \n Gracias por usar este programa :) ");
+	
+}
